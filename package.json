@@ -48,7 +48,9 @@
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest"
   },
-  "browserslist": [],
+  "browserslist": [
+    "last 1 electron version"
+  ],
   "prettier": {
     "singleQuote": true,
     "overrides": [
