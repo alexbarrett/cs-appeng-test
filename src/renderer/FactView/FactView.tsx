@@ -1,12 +1,19 @@
+import { useAsync } from 'react-async-hook';
+
+import { FactDataSource } from '../fact/Fact';
 import classes from './FactView.module.css';
 
-function FactView() {
+interface Props {
+  dataSource: FactDataSource;
+}
+
+function FactView({ dataSource }: Props) {
+  const asyncFact = useAsync(dataSource, []);
+  const factText = asyncFact.result?.text;
+
   return (
     <div className={classes.fact}>
-      <p>
-        When a domestic cat goes after mice, about 1 pounce in 3 results in a
-        catch.
-      </p>
+      {asyncFact.loading ? 'Loading...' : <p>{factText}</p>}
     </div>
   );
 }
