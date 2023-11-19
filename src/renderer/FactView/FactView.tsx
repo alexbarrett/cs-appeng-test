@@ -12,9 +12,19 @@ function FactView({ dataSource }: Props) {
   const factText = asyncFact.result?.text;
 
   return (
-    <div className={classes.fact}>
-      {asyncFact.loading ? 'Loading...' : <p>{factText}</p>}
-    </div>
+    <>
+      <div className={classes.fact}>
+        {asyncFact.loading ? 'Loading...' : <p>{factText}</p>}
+      </div>
+      <ul className={`${classes.actions} material-symbols-rounded`}>
+        <li>
+          <button type="button">close</button>
+        </li>
+        <li>
+          <button type="button">favorite</button>
+        </li>
+      </ul>
+    </>
   );
 }
 

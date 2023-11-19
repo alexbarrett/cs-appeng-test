@@ -1,3 +1,4 @@
+import 'material-symbols';
 import { useMemo } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 

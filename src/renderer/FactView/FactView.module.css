@@ -2,3 +2,23 @@
   font-weight: 500;
   font-size: 28px;
 }
+
+.actions {
+  list-style: none;
+  display: flex;
+  margin: 2em 0 0;
+  gap: 2em;
+  padding: 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.actions button {
+  background: none;
+  border: .075em solid currentColor;
+  border-radius: 10%;
+  color: inherit;
+  font-family: inherit;
+  font-size: 60px;
+  padding: .25em .4em;
+}
