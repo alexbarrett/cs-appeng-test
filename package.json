@@ -83,7 +83,8 @@
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "setupFiles": [
-      "./.erb/scripts/check-build-exists.ts"
+      "./.erb/scripts/check-build-exists.ts",
+      "./src/setupTests.ts"
     ],
     "testEnvironment": "jsdom",
     "testEnvironmentOptions": {
@@ -151,6 +152,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "mini-css-extract-plugin": "^2.7.6",
     "prettier": "^3.0.3",
     "react-refresh": "^0.14.0",
