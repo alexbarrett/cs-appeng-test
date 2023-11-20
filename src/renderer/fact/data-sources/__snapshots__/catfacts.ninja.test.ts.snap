@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`data source generates an ID from the fact text 1`] = `"PoJZ1znsnFhKKYpxaNIYP7Gj9Yo="`;

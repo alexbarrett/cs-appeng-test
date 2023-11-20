@@ -16,6 +16,7 @@ import FactView from './FactView';
 const LOADING_SYMBOL = 'progress_activity';
 
 const fact: Fact = {
+  id: '1',
   text: 'Purring does not always indicate that a cat is happy. Cats will also purr loudly when they are distressed or in pain.',
   updatedAt: '2023-11-20T15:22:00Z',
   source: 'fixture',
