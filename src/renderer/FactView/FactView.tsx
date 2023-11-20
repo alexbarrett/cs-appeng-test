@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ReactNode } from 'react';
 import { AsyncState } from 'react-async-hook';
 
 import { Fact } from '../fact/Fact';
@@ -7,17 +8,23 @@ import Loader from '../Loader/Loader';
 
 interface Props {
   fact: AsyncState<Fact>;
-  isFavorite: boolean;
+  isFavorite?: boolean;
   onDismiss?: () => void;
   onFavorite?: (fact: Fact) => void;
 }
 
 function FactView({ fact, isFavorite = false, onDismiss, onFavorite }: Props) {
-  const factText = fact.result?.text;
+  let factContent: ReactNode = fact.result?.text;
+  if (fact.loading) {
+    factContent = <Loader />;
+  } else if (fact.error) {
+    factContent =
+      'A problem was encountered when researching interesting facts about cats.';
+  }
 
   return (
     <div className={classes.container}>
-      <div className={classes.fact}>{fact.loading ? <Loader /> : factText}</div>
+      <div className={classes.fact}>{factContent}</div>
       <ul className={`${classes.actions} material-symbols-rounded`}>
         <li>
           <button
@@ -36,7 +43,7 @@ function FactView({ fact, isFavorite = false, onDismiss, onFavorite }: Props) {
           <button
             type="button"
             title="Favourite"
-            disabled={fact.loading}
+            disabled={fact.loading || Boolean(fact.error)}
             className={clsx(
               classes.actionFavorite,
               isFavorite && classes.isFavorite,

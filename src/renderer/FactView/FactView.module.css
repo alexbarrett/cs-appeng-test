@@ -41,7 +41,7 @@
   transition:
     font-variation-settings 0.1s,
     color 0.2s,
-    opacity 0.2s ease-in;
+    opacity 0.2s ease-in 0.2s;
 }
 
 .actionDismiss {
