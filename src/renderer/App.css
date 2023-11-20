@@ -3,26 +3,26 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 
- @font-face {
-  font-family: "Noto Sans";
-  src: url("assets/fonts/noto-sans/NotoSans-Regular.ttf");
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/noto-sans/NotoSans-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Noto Sans";
-  src: url("assets/fonts/noto-sans/NotoSans-Medium.ttf");
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/noto-sans/NotoSans-Medium.ttf');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "Noto Sans";
-  src: url("assets/fonts/noto-sans/NotoSans-Bold.ttf");
+  font-family: 'Noto Sans';
+  src: url('assets/fonts/noto-sans/NotoSans-Bold.ttf');
   font-weight: bold;
 }
 
 body {
   background-color: #011025;
   color: #fff;
-  font-family: "Noto Sans";
-  padding: 2rem;
+  font-family: 'Noto Sans';
+  margin: 0;
 }

@@ -1,12 +1,22 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  height: 100vh;
+  padding: 4em 4em 8em;
+}
+
 .fact {
   font-weight: 500;
   font-size: 28px;
+  flex-grow: 1;
 }
 
 .actions {
   list-style: none;
   display: flex;
-  margin: 2em 0 0;
+  margin: 0;
   gap: 2em;
   padding: 0;
   width: 100%;
@@ -15,15 +25,17 @@
 
 .actions button {
   background: none;
-  border: .075em solid currentColor;
+  border: 0.075em solid currentColor;
   border-radius: 10%;
   color: inherit;
   cursor: pointer;
   font-family: inherit;
   font-size: 60px;
-  padding: .25em .4em;
+  padding: 0.25em 0.4em;
   font-variation-settings: 'FILL' 0;
-  transition: font-variation-settings 100ms;
+  transition:
+    font-variation-settings 0.1s,
+    color 0.2s;
 }
 
 .actionDismiss {
@@ -31,10 +43,13 @@
 }
 
 .actionFavorite {
-  --action-color: #FE1868;
+  --action-color: #fe1868;
 }
 
-.actions button:hover{
-  color: var(--action-color);
+.actionFavorite.isFavorite {
   font-variation-settings: 'FILL' 1;
+}
+
+.actions button:hover {
+  color: var(--action-color);
 }

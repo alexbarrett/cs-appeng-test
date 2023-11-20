@@ -1,27 +1,32 @@
-import { useAsync } from 'react-async-hook';
+import clsx from 'clsx';
+import { AsyncState } from 'react-async-hook';
 
-import { FactDataSource } from '../fact/Fact';
+import { Fact } from '../fact/Fact';
 import classes from './FactView.module.css';
+import Loader from '../Loader/Loader';
 
 interface Props {
-  dataSource: FactDataSource;
+  fact: AsyncState<Fact>;
+  isFavorite: boolean;
+  onDismiss?: () => void;
+  onFavorite?: (fact: Fact) => void;
 }
 
-function FactView({ dataSource }: Props) {
-  const asyncFact = useAsync(dataSource, []);
-  const factText = asyncFact.result?.text;
+function FactView({ fact, isFavorite = false, onDismiss, onFavorite }: Props) {
+  const factText = fact.result?.text;
 
   return (
-    <>
-      <div className={classes.fact}>
-        {asyncFact.loading ? 'Loading...' : <p>{factText}</p>}
-      </div>
+    <div className={classes.container}>
+      <div className={classes.fact}>{fact.loading ? <Loader /> : factText}</div>
       <ul className={`${classes.actions} material-symbols-rounded`}>
         <li>
           <button
             type="button"
             title="Dismiss"
             className={classes.actionDismiss}
+            onClick={() => {
+              onDismiss?.();
+            }}
           >
             close
           </button>
@@ -30,13 +35,21 @@ function FactView({ dataSource }: Props) {
           <button
             type="button"
             title="Favourite"
-            className={classes.actionFavorite}
+            className={clsx(
+              classes.actionFavorite,
+              isFavorite && classes.isFavorite,
+            )}
+            onClick={() => {
+              if (fact.result) {
+                onFavorite?.(fact.result);
+              }
+            }}
           >
             favorite
           </button>
         </li>
       </ul>
-    </>
+    </div>
   );
 }
 
