@@ -18,7 +18,23 @@
   border: .075em solid currentColor;
   border-radius: 10%;
   color: inherit;
+  cursor: pointer;
   font-family: inherit;
   font-size: 60px;
   padding: .25em .4em;
+  font-variation-settings: 'FILL' 0;
+  transition: font-variation-settings 100ms;
+}
+
+.actionDismiss {
+  --action-color: red;
+}
+
+.actionFavorite {
+  --action-color: #FE1868;
+}
+
+.actions button:hover{
+  color: var(--action-color);
+  font-variation-settings: 'FILL' 1;
 }

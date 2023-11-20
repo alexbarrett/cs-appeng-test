@@ -18,10 +18,22 @@ function FactView({ dataSource }: Props) {
       </div>
       <ul className={`${classes.actions} material-symbols-rounded`}>
         <li>
-          <button type="button">close</button>
+          <button
+            type="button"
+            title="Dismiss"
+            className={classes.actionDismiss}
+          >
+            close
+          </button>
         </li>
         <li>
-          <button type="button">favorite</button>
+          <button
+            type="button"
+            title="Favourite"
+            className={classes.actionFavorite}
+          >
+            favorite
+          </button>
         </li>
       </ul>
     </>

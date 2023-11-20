@@ -1,4 +1,4 @@
-import 'material-symbols';
+import 'material-symbols/rounded.css';
 import { useMemo } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 
