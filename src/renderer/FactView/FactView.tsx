@@ -23,6 +23,7 @@ function FactView({ fact, isFavorite = false, onDismiss, onFavorite }: Props) {
           <button
             type="button"
             title="Dismiss"
+            disabled={fact.loading}
             className={classes.actionDismiss}
             onClick={() => {
               onDismiss?.();
@@ -35,6 +36,7 @@ function FactView({ fact, isFavorite = false, onDismiss, onFavorite }: Props) {
           <button
             type="button"
             title="Favourite"
+            disabled={fact.loading}
             className={clsx(
               classes.actionFavorite,
               isFavorite && classes.isFavorite,

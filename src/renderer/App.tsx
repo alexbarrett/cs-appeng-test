@@ -21,6 +21,10 @@ export default function App() {
           element={
             <FactView
               fact={currentFact}
+              onDismiss={() => {
+                currentFact.execute();
+                setFavorite(false);
+              }}
               isFavorite={isFavorite}
               onFavorite={() => setFavorite((val) => !val)}
             />
