@@ -1,5 +1,5 @@
 import 'material-symbols/rounded.css';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useAsync } from 'react-async-hook';
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
@@ -7,12 +7,19 @@ import { createDataSource } from './fact/data-sources/catfacts.ninja';
 import FactView from './FactView/FactView';
 import FavoritesView from './FavouritesView/FavouritesView';
 import './App.css';
+import BrowserFactStore from './FactStore/BrowserFactStore';
 
 export default function App() {
-  const dataSource = useMemo(createDataSource, []);
+  const [dataSource] = useState(createDataSource);
+  const [favorites] = useState(() => new BrowserFactStore());
   const currentFact = useAsync(dataSource, []);
 
-  const [isFavorite, setFavorite] = useState(false);
+  const isFavorite = useAsync(async () => {
+    if (!currentFact.result) {
+      return false;
+    }
+    return favorites.contains(currentFact.result);
+  }, [currentFact.result?.id]);
 
   return (
     <Router>
@@ -32,10 +39,20 @@ export default function App() {
               fact={currentFact}
               onDismiss={() => {
                 currentFact.execute();
-                setFavorite(false);
               }}
               isFavorite={isFavorite}
-              onFavorite={() => setFavorite((val) => !val)}
+              onFavorite={() => {
+                if (!currentFact.result || isFavorite.status !== 'success') {
+                  return;
+                }
+
+                if (isFavorite.result) {
+                  favorites.remove(currentFact.result);
+                } else {
+                  favorites.add(currentFact.result);
+                }
+                isFavorite.execute();
+              }}
             />
           }
         />

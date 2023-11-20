@@ -8,18 +8,20 @@ import Loader from '../Loader/Loader';
 
 interface Props {
   fact: AsyncState<Fact>;
-  isFavorite?: boolean;
+  isFavorite?: AsyncState<boolean>;
   onDismiss?: () => void;
   onFavorite?: (fact: Fact) => void;
 }
 
-function FactView({ fact, isFavorite = false, onDismiss, onFavorite }: Props) {
-  let factContent: ReactNode = fact.result?.text;
-  if (fact.loading) {
+function FactView({ fact, isFavorite, onDismiss, onFavorite }: Props) {
+  let factContent: ReactNode;
+  if (fact.loading || isFavorite?.loading) {
     factContent = <Loader />;
   } else if (fact.error) {
     factContent =
       'A problem was encountered when researching interesting facts about cats.';
+  } else {
+    factContent = fact.result?.text;
   }
 
   return (
@@ -46,7 +48,7 @@ function FactView({ fact, isFavorite = false, onDismiss, onFavorite }: Props) {
             disabled={fact.loading || Boolean(fact.error)}
             className={clsx(
               classes.actionFavorite,
-              isFavorite && classes.isFavorite,
+              isFavorite?.result && classes.isFavorite,
             )}
             onClick={() => {
               if (fact.result) {

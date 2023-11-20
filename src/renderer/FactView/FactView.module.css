@@ -53,6 +53,7 @@
 }
 
 .actionFavorite.isFavorite {
+  color: var(--action-color);
   font-variation-settings: 'FILL' 1;
 }
 
