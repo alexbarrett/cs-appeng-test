@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 import { useAsync } from 'react-async-hook';
 
+import ActionButton from '../ActionButton/ActionButton';
 import { FactStore } from '../FactStore/FactStore';
 import classes from './FavouritesView.module.css';
-import ActionButton from '../ActionButton/ActionButton';
+import Loader from '../Loader/Loader';
 
 interface Props {
   factStore: FactStore;
@@ -13,7 +14,9 @@ function FavoritesView({ factStore }: Props) {
   const allFacts = useAsync(() => factStore.getAll(), []);
 
   let content: ReactNode;
-  if (allFacts.result) {
+  if (allFacts.loading) {
+    content = <Loader />;
+  } else if (allFacts.result) {
     content = (
       <ol className={classes.favoritesList}>
         {allFacts.result.map((fact) => (
@@ -23,11 +26,17 @@ function FavoritesView({ factStore }: Props) {
               symbol="heart_minus"
               title="Remove from favourites"
               className={classes.removeFavorite}
+              onClick={async () => {
+                await factStore.remove(fact);
+                allFacts.execute();
+              }}
             />
           </li>
         ))}
       </ol>
     );
+  } else {
+    content = 'A problem was encountered when loading your favourite facts.';
   }
 
   return <div className={classes.container}>{content}</div>;
