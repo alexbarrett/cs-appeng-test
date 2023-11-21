@@ -6,7 +6,10 @@ interface BrowserFactStoreOptions {
 }
 
 /**
- * Defaults to using localStorage.
+ * Stores facts using an instance of browser `Storage` implementations (usually
+ * be localStorage or sessionStorage).
+ *
+ * Defaults to using localStorage if not otherwise specified.
  */
 class BrowserFactStore implements FactStore {
   private storage: Storage;

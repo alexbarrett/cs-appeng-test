@@ -4,7 +4,9 @@ import { FactStore } from './FactStore';
 const key = (fact: Fact) => `${fact.source}__${fact.id}`;
 
 /**
- * Defaults to using localStorage.
+ * Stores facts in memory.
+ *
+ * Facts stored here will be lost on application restart. Useful for testing.
  */
 class MemoryFactStore implements FactStore {
   private facts = new Map();

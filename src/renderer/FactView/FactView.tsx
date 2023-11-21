@@ -14,6 +14,9 @@ interface Props {
   onFavorite?: (fact: Fact) => void;
 }
 
+/**
+ * Displays a single fact with buttons to dismiss the fact or add to favorites.
+ */
 function FactView({ fact, isFavorite, onDismiss, onFavorite }: Props) {
   let factContent: ReactNode;
   if (fact.loading || isFavorite?.loading) {

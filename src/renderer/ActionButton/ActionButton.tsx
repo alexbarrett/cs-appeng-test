@@ -8,6 +8,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   symbol: MaterialSymbol;
 }
 
+/**
+ * A simple button component with preset styling designed for showing an icon.
+ * Use the `symbol` property to choose what icon to display on the button.
+ * Available symbols can be browsed at https://fonts.google.com/icons
+ */
 function ActionButton({ className, symbol, type = 'button', ...rest }: Props) {
   return (
     <button
