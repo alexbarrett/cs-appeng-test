@@ -3,7 +3,7 @@ import { useAsync } from 'react-async-hook';
 
 import ActionButton from '../ActionButton/ActionButton';
 import { FactStore } from '../FactStore/FactStore';
-import classes from './FavouritesView.module.css';
+import classes from './FavoritesView.module.css';
 import Loader from '../Loader/Loader';
 
 interface Props {
@@ -27,6 +27,9 @@ function FavoritesView({ factStore }: Props) {
               title="Remove from favourites"
               className={classes.removeFavorite}
               onClick={async () => {
+                // TODO: Handle intermediate state before remove action fulfils.
+                // A user could, for instance, click the button multiple times
+                // before removal is complete.
                 await factStore.remove(fact);
                 allFacts.execute();
               }}

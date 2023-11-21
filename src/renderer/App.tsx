@@ -5,7 +5,7 @@ import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import { createDataSource } from './fact/data-sources/catfacts.ninja';
 import FactView from './FactView/FactView';
-import FavoritesView from './FavouritesView/FavouritesView';
+import FavoritesView from './FavoritesView/FavoritesView';
 import './App.css';
 import BrowserFactStore from './FactStore/BrowserFactStore';
 
