@@ -5,6 +5,7 @@ import { AsyncState } from 'react-async-hook';
 import { Fact } from '../fact/Fact';
 import classes from './FactView.module.css';
 import Loader from '../Loader/Loader';
+import ActionButton from '../ActionButton/ActionButton';
 
 interface Props {
   fact: AsyncState<Fact>;
@@ -29,25 +30,19 @@ function FactView({ fact, isFavorite, onDismiss, onFavorite }: Props) {
       <div className={classes.fact}>{factContent}</div>
       <ul className={classes.actions}>
         <li>
-          <button
-            type="button"
+          <ActionButton
+            symbol="close"
             title="Dismiss"
             disabled={fact.loading}
-            className={clsx(
-              'action',
-              'material-symbols-rounded',
-              classes.actionDismiss,
-            )}
+            className={classes.actionDismiss}
             onClick={() => {
               onDismiss?.();
             }}
-          >
-            close
-          </button>
+          />
         </li>
         <li>
-          <button
-            type="button"
+          <ActionButton
+            symbol="favorite"
             title={
               isFavorite?.result
                 ? 'Remove from favourites'
@@ -55,8 +50,6 @@ function FactView({ fact, isFavorite, onDismiss, onFavorite }: Props) {
             }
             disabled={fact.loading || Boolean(fact.error)}
             className={clsx(
-              'action',
-              'material-symbols-rounded',
               classes.actionFavorite,
               isFavorite?.result && classes.isFavorite,
             )}
@@ -65,9 +58,7 @@ function FactView({ fact, isFavorite, onDismiss, onFavorite }: Props) {
                 onFavorite?.(fact.result);
               }
             }}
-          >
-            favorite
-          </button>
+          />
         </li>
       </ul>
     </div>

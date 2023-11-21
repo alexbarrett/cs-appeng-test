@@ -3,6 +3,7 @@ import { useAsync } from 'react-async-hook';
 
 import { FactStore } from '../FactStore/FactStore';
 import classes from './FavouritesView.module.css';
+import ActionButton from '../ActionButton/ActionButton';
 
 interface Props {
   factStore: FactStore;
@@ -18,13 +19,11 @@ function FavoritesView({ factStore }: Props) {
         {allFacts.result.map((fact) => (
           <li key={`${fact.source}_${fact.id}`}>
             <p className={classes.fact}>{fact.text}</p>
-            <button
-              type="button"
+            <ActionButton
+              symbol="heart_minus"
               title="Remove from favourites"
               className="action material-symbols-rounded"
-            >
-              heart_minus
-            </button>
+            />
           </li>
         ))}
       </ol>
