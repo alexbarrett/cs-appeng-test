@@ -22,7 +22,7 @@ function FavoritesView({ factStore }: Props) {
             <ActionButton
               symbol="heart_minus"
               title="Remove from favourites"
-              className="action material-symbols-rounded"
+              className={classes.removeFavorite}
             />
           </li>
         ))}
