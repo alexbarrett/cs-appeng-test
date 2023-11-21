@@ -4,10 +4,10 @@ import { useAsync } from 'react-async-hook';
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 import { createDataSource } from './fact/data-sources/catfacts.ninja';
+import BrowserFactStore from './FactStore/BrowserFactStore';
 import FactView from './FactView/FactView';
 import FavoritesView from './FavoritesView/FavoritesView';
 import './App.css';
-import BrowserFactStore from './FactStore/BrowserFactStore';
 
 export default function App() {
   const [dataSource] = useState(createDataSource);
@@ -20,6 +20,33 @@ export default function App() {
     }
     return favorites.contains(currentFact.result);
   }, [currentFact.result?.id]);
+
+  const [isTogglingFavorite, setTogglingFavorite] = useState(false);
+  const handleAddFavorite = async () => {
+    if (
+      !currentFact.result ||
+      isFavorite.status !== 'success' ||
+      isTogglingFavorite
+    ) {
+      // Only allow toggling when FactView is fully loaded, and toggling is not
+      // already in progress.
+      return;
+    }
+
+    setTogglingFavorite(true);
+    if (isFavorite.result) {
+      await favorites.remove(currentFact.result);
+      await isFavorite.execute();
+      setTogglingFavorite(false);
+    } else {
+      await favorites.add(currentFact.result);
+      await isFavorite.execute();
+      setTimeout(() => {
+        currentFact.execute();
+        setTogglingFavorite(false);
+      }, 200);
+    }
+  };
 
   return (
     <Router>
@@ -41,18 +68,7 @@ export default function App() {
                 currentFact.execute();
               }}
               isFavorite={isFavorite}
-              onFavorite={() => {
-                if (!currentFact.result || isFavorite.status !== 'success') {
-                  return;
-                }
-
-                if (isFavorite.result) {
-                  favorites.remove(currentFact.result);
-                } else {
-                  favorites.add(currentFact.result);
-                }
-                isFavorite.execute();
-              }}
+              onFavorite={handleAddFavorite}
             />
           }
         />
