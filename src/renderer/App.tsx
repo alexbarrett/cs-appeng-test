@@ -28,7 +28,7 @@ export default function App() {
           <Link to="/">Explore</Link>
         </li>
         <li>
-          <Link to="/favorites">Favorites</Link>
+          <Link to="/favorites">Favourites</Link>
         </li>
       </ul>
       <Routes>
@@ -56,7 +56,10 @@ export default function App() {
             />
           }
         />
-        <Route path="/favorites" element={<FavoritesView />} />
+        <Route
+          path="/favorites"
+          element={<FavoritesView factStore={favorites} />}
+        />
       </Routes>
     </Router>
   );

@@ -21,27 +21,14 @@
   display: flex;
   flex-basis: 40%;
   margin: 0;
-  gap: 2em;
+  gap: 5vw;
   padding: 0;
   width: 100%;
   justify-content: center;
 }
 
 .actions button {
-  background: none;
-  border: 0.075em solid currentColor;
-  border-radius: 10%;
-  color: inherit;
-  cursor: pointer;
-  font-family: inherit;
   font-size: 60px;
-  padding: 0.25em 0.4em;
-  user-select: none;
-  font-variation-settings: 'FILL' 0;
-  transition:
-    font-variation-settings 0.1s,
-    color 0.2s,
-    opacity 0.2s ease-in 0.2s;
 }
 
 .actionDismiss {
@@ -55,15 +42,4 @@
 .actionFavorite.isFavorite {
   color: var(--action-color);
   font-variation-settings: 'FILL' 1;
-}
-
-.actions button:hover:enabled {
-  color: var(--action-color);
-}
-
-.actions button:disabled {
-  opacity: 0.3;
-  /* Short delay prevents animation teetering on fast connections when the user
-     is skipping through facts quickly. */
-  transition-delay: 0.2s;
 }

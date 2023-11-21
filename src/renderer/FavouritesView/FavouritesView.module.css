@@ -1,0 +1,37 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  min-height: 100vh;
+  padding: 4em 4em 4em;
+}
+
+.favoritesList {
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.favoritesList li {
+  display: flex;
+  align-items: start;
+  gap: 2em;
+}
+
+.fact {
+  flex-grow: 1;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0.25em 0 0; /* margin-top matches action button padding-top */
+}
+
+.favoritesList button:global(.action) {
+  --action-color: #fe1868;
+  /* color: var(--action-color); */
+  font-variation-settings: 'FILL' 1;
+  align-self: center;
+}

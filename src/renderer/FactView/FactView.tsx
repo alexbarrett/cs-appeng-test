@@ -27,13 +27,17 @@ function FactView({ fact, isFavorite, onDismiss, onFavorite }: Props) {
   return (
     <div className={classes.container}>
       <div className={classes.fact}>{factContent}</div>
-      <ul className={`${classes.actions} material-symbols-rounded`}>
+      <ul className={classes.actions}>
         <li>
           <button
             type="button"
             title="Dismiss"
             disabled={fact.loading}
-            className={classes.actionDismiss}
+            className={clsx(
+              'action',
+              'material-symbols-rounded',
+              classes.actionDismiss,
+            )}
             onClick={() => {
               onDismiss?.();
             }}
@@ -44,9 +48,15 @@ function FactView({ fact, isFavorite, onDismiss, onFavorite }: Props) {
         <li>
           <button
             type="button"
-            title="Favourite"
+            title={
+              isFavorite?.result
+                ? 'Remove from favourites'
+                : 'Add to favourites'
+            }
             disabled={fact.loading || Boolean(fact.error)}
             className={clsx(
+              'action',
+              'material-symbols-rounded',
               classes.actionFavorite,
               isFavorite?.result && classes.isFavorite,
             )}

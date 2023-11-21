@@ -26,3 +26,29 @@ body {
   font-family: 'Noto Sans';
   margin: 0;
 }
+
+button.action {
+  background: none;
+  border: 0.075em solid currentColor;
+  border-radius: 10%;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.25em 0.4em;
+  user-select: none;
+  font-variation-settings: 'FILL' 0;
+  transition:
+    font-variation-settings 0.1s,
+    color 0.2s,
+    opacity 0.2s ease-in 0.2s;
+}
+
+button.action:hover:enabled {
+  color: var(--action-color);
+}
+
+button.action:disabled {
+  opacity: 0.3;
+  /* Short delay prevents animation teetering on fast connections when the user
+     is skipping through facts quickly. */
+  transition-delay: 0.2s;
+}
