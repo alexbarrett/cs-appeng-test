@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { useAsync } from 'react-async-hook';
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-import { createDataSource } from './fact/data-sources/catfacts.ninja';
-import BrowserFactStore from './FactStore/BrowserFactStore';
-import FactView from './FactView/FactView';
-import FavoritesView from './FavoritesView/FavoritesView';
+import { createDataSource } from '../fact/data-sources/catfacts.ninja';
+import BrowserFactStore from '../FactStore/BrowserFactStore';
+import FactView from '../FactView/FactView';
+import FavoritesView from '../FavoritesView/FavoritesView';
 import './App.css';
 
 export default function App() {
@@ -50,33 +50,47 @@ export default function App() {
 
   return (
     <Router>
-      <ul>
-        <li>
-          <Link to="/">Explore</Link>
-        </li>
-        <li>
-          <Link to="/favorites">Favourites</Link>
-        </li>
-      </ul>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <FactView
-              fact={currentFact}
-              onDismiss={() => {
-                currentFact.execute();
-              }}
-              isFavorite={isFavorite}
-              onFavorite={handleAddFavorite}
-            />
-          }
-        />
-        <Route
-          path="/favorites"
-          element={<FavoritesView factStore={favorites} />}
-        />
-      </Routes>
+      <header>
+        <nav>
+          <ol>
+            <li>
+              <Link to="/">Explore</Link>
+            </li>
+            <li>
+              <Link to="/favorites">Favourites</Link>
+            </li>
+          </ol>
+        </nav>
+        <div>
+          Notify me about a new cat fact every{' '}
+          <select>
+            <option>10 seconds</option>
+            <option>5 minutes</option>
+            <option>2 hours</option>
+          </select>
+        </div>
+      </header>
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <FactView
+                fact={currentFact}
+                onDismiss={() => {
+                  currentFact.execute();
+                }}
+                isFavorite={isFavorite}
+                onFavorite={handleAddFavorite}
+              />
+            }
+          />
+          <Route
+            path="/favorites"
+            element={<FavoritesView factStore={favorites} />}
+          />
+        </Routes>
+      </main>
     </Router>
   );
 }
