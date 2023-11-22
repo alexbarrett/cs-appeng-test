@@ -59,10 +59,10 @@ export default function App() {
   };
 
   const notificationIntervalOptions = [
-    { label: '10 seconds', intervalMs: milliseconds({ second: 10 }) },
-    { label: '5 minutes', intervalMs: milliseconds({ minute: 5 }) },
-    { label: '2 hours', intervalMs: milliseconds({ hour: 2 }) },
-    { label: 'Never', intervalMs: DISABLED_INTERVAL_VALUE },
+    { label: 'every 10 seconds', intervalMs: milliseconds({ second: 10 }) },
+    { label: 'every 5 minutes', intervalMs: milliseconds({ minute: 5 }) },
+    { label: 'every 2 hours', intervalMs: milliseconds({ hour: 2 }) },
+    { label: 'never', intervalMs: DISABLED_INTERVAL_VALUE },
   ] as const;
 
   const handleNotificationTriggered = useCallback(async () => {
@@ -75,7 +75,7 @@ export default function App() {
 
   const notificationSelectElement = useConfigurableInterval(
     notificationIntervalOptions,
-    '5 minutes',
+    'every 5 minutes',
     handleNotificationTriggered,
   );
 
@@ -98,9 +98,7 @@ export default function App() {
             </li>
           </ol>
         </nav>
-        <div>
-          Notify me about new cat facts every {notificationSelectElement}
-        </div>
+        <div>Notify me about new cat facts {notificationSelectElement}</div>
       </header>
       <main>
         <Routes>
