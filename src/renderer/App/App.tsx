@@ -1,5 +1,5 @@
 import 'material-symbols/rounded.css';
-import { useState } from 'react';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useAsync } from 'react-async-hook';
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import BrowserFactStore from '../FactStore/BrowserFactStore';
 import FactView from '../FactView/FactView';
 import FavoritesView from '../FavoritesView/FavoritesView';
 import './App.css';
+import { milliseconds } from '../util/time';
 
 export default function App() {
   const [dataSource] = useState(createDataSource);
@@ -28,7 +29,7 @@ export default function App() {
       isFavorite.status !== 'success' ||
       isTogglingFavorite
     ) {
-      // Only allow toggling when FactView is fully loaded, and toggling is not
+      // Prevent toggling if FactView is not fully loaded or if toggling is
       // already in progress.
       return;
     }
@@ -48,6 +49,43 @@ export default function App() {
     }
   };
 
+  const notificationIntervalOptions = [
+    { label: '10 seconds', intervalMs: milliseconds({ second: 10 }) },
+    { label: '5 minutes', intervalMs: milliseconds({ minute: 5 }) },
+    { label: '2 hours', intervalMs: milliseconds({ hour: 5 }) },
+    { label: 'Never', intervalMs: null },
+  ] as const;
+  type NotificationIntervalOptionLabel =
+    (typeof notificationIntervalOptions)[number]['label'];
+  const defaultNotificationInterval: NotificationIntervalOptionLabel =
+    '5 minutes';
+
+  const [notificationIntervalMs, setNotificationIntervalMs] = useState(
+    () =>
+      notificationIntervalOptions.find(
+        ({ label }) => label === defaultNotificationInterval,
+      )?.intervalMs ?? null,
+  );
+  const handleNotificationIntervalChange: ChangeEventHandler<
+    HTMLSelectElement
+  > = (event) => {
+    setNotificationIntervalMs(parseInt(event.target.value, 10));
+  };
+
+  useEffect(() => {
+    let handle: ReturnType<typeof setInterval> | undefined;
+    if (notificationIntervalMs !== null) {
+      handle = setInterval(async () => {
+        const fact = await currentFact.execute();
+        window.electron.ipcRenderer.showNotification('New Cat Fact', fact.text);
+      }, notificationIntervalMs);
+    }
+
+    return () => {
+      clearTimeout(handle);
+    };
+  }, [currentFact, notificationIntervalMs]);
+
   return (
     <Router>
       <header>
@@ -62,11 +100,20 @@ export default function App() {
           </ol>
         </nav>
         <div>
-          Notify me about a new cat fact every{' '}
-          <select>
-            <option>10 seconds</option>
-            <option>5 minutes</option>
-            <option>2 hours</option>
+          Notify me about new cat facts every{' '}
+          <select
+            onChange={handleNotificationIntervalChange}
+            value={notificationIntervalMs}
+          >
+            {notificationIntervalOptions.map(({ label, intervalMs }) => (
+              <option
+                key={label}
+                value={intervalMs}
+                selected={notificationIntervalMs === intervalMs}
+              >
+                {label}
+              </option>
+            ))}
           </select>
         </div>
       </header>
