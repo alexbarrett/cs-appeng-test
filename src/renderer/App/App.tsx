@@ -1,5 +1,5 @@
 import 'material-symbols/rounded.css';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useAsync } from 'react-async-hook';
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
@@ -7,8 +7,12 @@ import { createDataSource } from '../fact/data-sources/catfacts.ninja';
 import BrowserFactStore from '../FactStore/BrowserFactStore';
 import FactView from '../FactView/FactView';
 import FavoritesView from '../FavoritesView/FavoritesView';
-import './App.css';
 import { milliseconds } from '../util/time';
+import {
+  DISABLED_INTERVAL_VALUE,
+  useConfigurableInterval,
+} from './useConfigurableInterval';
+import './App.css';
 
 export default function App() {
   const [dataSource] = useState(createDataSource);
@@ -52,39 +56,23 @@ export default function App() {
   const notificationIntervalOptions = [
     { label: '10 seconds', intervalMs: milliseconds({ second: 10 }) },
     { label: '5 minutes', intervalMs: milliseconds({ minute: 5 }) },
-    { label: '2 hours', intervalMs: milliseconds({ hour: 5 }) },
-    { label: 'Never', intervalMs: null },
+    { label: '2 hours', intervalMs: milliseconds({ hour: 2 }) },
+    { label: 'Never', intervalMs: DISABLED_INTERVAL_VALUE },
   ] as const;
-  type NotificationIntervalOptionLabel =
-    (typeof notificationIntervalOptions)[number]['label'];
-  const defaultNotificationInterval: NotificationIntervalOptionLabel =
-    '5 minutes';
 
-  const [notificationIntervalMs, setNotificationIntervalMs] = useState(
-    () =>
-      notificationIntervalOptions.find(
-        ({ label }) => label === defaultNotificationInterval,
-      )?.intervalMs ?? null,
+  const handleNotificationTriggered = useCallback(async () => {
+    const fact = await currentFact.execute();
+    window.electron.ipcRenderer.showNotification(
+      'Cat Facts for (Cyber)Smart People',
+      fact.text,
+    );
+  }, [currentFact]);
+
+  const notificationSelectElement = useConfigurableInterval(
+    notificationIntervalOptions,
+    '5 minutes',
+    handleNotificationTriggered,
   );
-  const handleNotificationIntervalChange: ChangeEventHandler<
-    HTMLSelectElement
-  > = (event) => {
-    setNotificationIntervalMs(parseInt(event.target.value, 10));
-  };
-
-  useEffect(() => {
-    let handle: ReturnType<typeof setInterval> | undefined;
-    if (notificationIntervalMs !== null) {
-      handle = setInterval(async () => {
-        const fact = await currentFact.execute();
-        window.electron.ipcRenderer.showNotification('New Cat Fact', fact.text);
-      }, notificationIntervalMs);
-    }
-
-    return () => {
-      clearTimeout(handle);
-    };
-  }, [currentFact, notificationIntervalMs]);
 
   return (
     <Router>
@@ -100,21 +88,7 @@ export default function App() {
           </ol>
         </nav>
         <div>
-          Notify me about new cat facts every{' '}
-          <select
-            onChange={handleNotificationIntervalChange}
-            value={notificationIntervalMs}
-          >
-            {notificationIntervalOptions.map(({ label, intervalMs }) => (
-              <option
-                key={label}
-                value={intervalMs}
-                selected={notificationIntervalMs === intervalMs}
-              >
-                {label}
-              </option>
-            ))}
-          </select>
+          Notify me about new cat facts every {notificationSelectElement}
         </div>
       </header>
       <main>
