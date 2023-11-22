@@ -14,7 +14,7 @@ interface Props {
  * Displays all facts stored in a `FactStore` with buttons to remove each one.
  */
 function FavoritesView({ factStore }: Props) {
-  const allFacts = useAsync(() => factStore.getAll(), []);
+  const allFacts = useAsync(() => factStore.getAll(), [factStore]);
 
   let content: ReactNode;
   if (allFacts.loading) {

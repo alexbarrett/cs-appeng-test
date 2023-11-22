@@ -15,6 +15,12 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     // Not necessary as default parameter types can be enforced by TypeScript.
     'react/require-default-props': 'off',
+    'react-hooks/exhaustive-deps': [
+      'error',
+      {
+        additionalHooks: '(useAsync|useAsyncCallback)',
+      },
+    ],
     // This is the same as the default configuration expect it removes the rule
     // disallowing 'for...of' statements which has dubious reasoning
     // (see https://github.com/eslint/eslint/issues/4267)

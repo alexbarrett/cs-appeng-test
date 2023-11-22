@@ -13,14 +13,14 @@ import { milliseconds } from '../util/time';
 export default function App() {
   const [dataSource] = useState(createDataSource);
   const [favorites] = useState(() => new BrowserFactStore());
-  const currentFact = useAsync(dataSource, []);
+  const currentFact = useAsync(dataSource, [dataSource]);
 
   const isFavorite = useAsync(async () => {
     if (!currentFact.result) {
       return false;
     }
     return favorites.contains(currentFact.result);
-  }, [currentFact.result?.id]);
+  }, [favorites, currentFact.result]);
 
   const [isTogglingFavorite, setTogglingFavorite] = useState(false);
   const handleAddFavorite = async () => {
