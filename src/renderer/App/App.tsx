@@ -1,7 +1,12 @@
 import 'material-symbols/rounded.css';
 import { useCallback, useState } from 'react';
 import { useAsync } from 'react-async-hook';
-import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from 'react-router-dom';
 
 import { createDataSource } from '../fact/data-sources/catfacts.ninja';
 import BrowserFactStore from '../FactStore/BrowserFactStore';
@@ -80,10 +85,16 @@ export default function App() {
         <nav>
           <ol>
             <li>
-              <Link to="/">Explore</Link>
+              <NavLink to="/">
+                <span className="material-symbols-rounded">explore</span>{' '}
+                Discover
+              </NavLink>
             </li>
             <li>
-              <Link to="/favorites">Favourites</Link>
+              <NavLink to="/favorites">
+                <span className="material-symbols-rounded">favorite</span>{' '}
+                Favourites
+              </NavLink>
             </li>
           </ol>
         </nav>

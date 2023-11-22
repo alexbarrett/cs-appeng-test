@@ -26,3 +26,54 @@ body {
   font-family: 'Noto Sans';
   margin: 0;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  border-bottom: 1px solid #fff1;
+  display: flex;
+  align-items: center;
+}
+
+nav {
+  flex-grow: 1;
+}
+
+nav ol {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+nav a {
+  color: #fff8;
+  display: inline-block;
+  padding: 1em;
+  text-decoration: none;
+  font-variation-settings: 'FILL' 0;
+  transition: font-variation-settings 0.2s;
+}
+
+nav a.active {
+  color: #fc3c;
+  font-variation-settings: 'FILL' 1;
+}
+
+nav a span {
+  vertical-align: text-bottom;
+  transform: translateY(1px);
+}
+
+header select {
+  margin-right: 1em;
+}
+
+main {
+  flex-grow: 1;
+  display: grid;
+}
