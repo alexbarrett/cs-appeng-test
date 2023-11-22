@@ -9,12 +9,15 @@ JavaScript desktop application that queries an API on a periodic basis. The API
 we will use is called Cat Fact. The API documentation and endpoint can be found
 below:
 
-- https://cat-fact.herokuapp.com/
-- https://alexwohlbruck.github.io/cat-facts/docs/endpoints/facts.html
+- https://catfact.ninja/
 
 This is a free API and we cannot commit to its availability. If the API is not
 working for you, then please choose another free API and update the user story
 accordingly.
+
+_Note: The original API (cat-fact.herokuapp.com) was indeed completely down and
+unavailable at the time I did this test. The URL above has been updated
+accordingly._
 
 ### Desktop Cat Facts
 
@@ -25,8 +28,7 @@ cat facts.
 #### Acceptance Criteria
 - As a user, when I open my desktop application, then I should see a daily cat
   fact
-- As a user, when I hover over the daily cat fact, then I should see the option
-  to add to favourites
+- As a user, when I hover over the daily cat fact, then I should see the option to add to favourites
 - As a user, when I hover over the daily cat fact, then I should see the option
   to delete the cat fact
 - As a user, when I click “add to favourites”, then the fact should be available
