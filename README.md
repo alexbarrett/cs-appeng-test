@@ -59,3 +59,5 @@ cat facts.
 - Tech test is delivered as a GitHub repository
 - The candidate delivers a reflection on what you would do different if you had
   more time
+
+_Note: Reflections can be found in the [REFLECTIONS](./REFLECTIONS.md) file._
