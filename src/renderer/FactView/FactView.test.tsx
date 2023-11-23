@@ -5,14 +5,6 @@ import { render, screen } from '@testing-library/react';
 import { Fact } from '../fact/Fact';
 import FactView from './FactView';
 
-// type AsyncStateStatus = 'not-requested' | 'loading' | 'success' | 'error';
-// type AsyncState<R> = {
-//   status: AsyncStateStatus;
-//   loading: boolean;
-//   error: Error | undefined;
-//   result: R | undefined;
-// };
-
 const LOADING_SYMBOL = 'progress_activity';
 
 const fact: Fact = {
