@@ -2,6 +2,24 @@
 
 We are prototyping a desktop application that notifies the user on the latest cat facts.
 
+## Buildings and running
+
+Install dependencies:
+
+    npm install
+
+To run the application in development mode:
+
+    npm run start
+
+To create a production build:
+
+    npm run build
+
+To package apps for the local platform:
+
+    npm run package
+
 ## The Technical Test
 
 We use ElectronJS at CyberSmart. This tech test asks you to build a simple
